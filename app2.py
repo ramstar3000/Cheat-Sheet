@@ -568,7 +568,7 @@ def Sheets():
 
 if __name__ == "__main__":
     app.secret_key = 'RamisC00L'
-    app.run(debug = False)
+    app.run(debug = True)
 
 
 
