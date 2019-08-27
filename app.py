@@ -91,12 +91,12 @@ def index():
             new_task = {"_id":session['username']+task_name,
                             "Name" : task_name,
                             "Content" : task_content.strip(),
-                            "Sheet" : task_sheet,
+                            "Sheet" : task_sheet.strip(),
                             "author":session['username'],
                             "Type":public,
                             "Set":[]}
                 
-                
+            print(task_sheet,task_sheet.strip())
             if not task_name:
                 return Renderer('index.html')
             if not task_content:
@@ -141,7 +141,7 @@ def index():
             #print (tasks_author)
     
             query = {"_id":tasks_author+task_name} 
-            new_task = { "$set":{"Content" : task_content.strip(), "Sheet" : task_sheet,"Type":public}}
+            new_task = { "$set":{"Content" : task_content.strip(), "Sheet" : task_sheet.strip(),"Type":public}}
             mongo.db.Data.update_one(query,new_task)
             #print("1111000000002222222999999938884755467")
             return redirect("/Sheets")
@@ -325,7 +325,11 @@ def Viewing():
                     if x[element]==item["_id"]:
                         loop.append(item)
                     else:pass
-            #print(loop)
+            print(loop)
+            
+            for element in loop:
+                element["Sheet"] = (element["Sheet"].strip())
+            print(loop)
             if loop:
                 z=0
 ##                if session["admin"]==True:
