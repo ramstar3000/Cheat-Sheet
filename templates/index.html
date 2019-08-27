@@ -10,9 +10,9 @@
 
 <div align="right">
 
-    <p>{{loopable[0]}}<p>
+    <h5>{{loopable[0]}}</h5>
 
-    
+
 </div>
 <title>
 Cheat Sheet Maker
@@ -49,7 +49,7 @@ Cheat Sheet Maker
         <br><br> Information:<br>
         
         
-        <textarea id="txt_comments" name="txt_comments" rows="9" cols="45"></textarea>
+        <textarea id="txt_comments" name="txt_comments" rows="8.5" cols="45"></textarea>
         <br><br> Code:<br>
     </form >    
     {%endblock%}
@@ -87,13 +87,20 @@ print("Hello World")
               
               
               }
-      
+      	  
+
+
           xhttp.open("POST","/",true);
           xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
           console.log(document.getElementById('Public').value);
-          xhttp.send("sheet="+value+"&&Name="+document.getElementById('Name').value+"&&txt_comments="+document.getElementById('txt_comments').value+"&&Public="+document.getElementById('Public').value);
-      
-          }
+          							   xhttp.send("sheet="+value+"&&Name="+document.getElementById('Name').value+"&&txt_comments="+document.getElementById('txt_comments').value+"&&Public="+document.getElementById('Public').value);
+          var temp = document.getElementsByTagName("template")[0];
+          var clon = temp.content.cloneNode(true);
+          document.body.appendChild(clon);    
+
+
+
+ }
 
     </script>
 
@@ -109,6 +116,13 @@ print("Hello World")
         <br><br>
         <a href = "/view">View Cards</a> 
         </div>
+</br>
+<template>
+
+	<h2 align = "right" >Sent</h2>
+
+
+</template>
     
     {%block info%}  {%endblock%}
 {%endblock%}

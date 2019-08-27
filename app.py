@@ -36,7 +36,7 @@ def index():
     if not session:
         return redirect(url_for('login'))
     
-    print((request.url_root))
+    #print((request.url_root))
 
     
     
@@ -49,9 +49,9 @@ def index():
         url = url.replace(",","")
         url = url.replace("%20"," ")
         url=url.strip()
-        print(url)
+        #print(url)
         MY_QUERY = {"_id":url}
-        print (MY_QUERY)
+        #print (MY_QUERY)
         mongo.db.Data.delete_one(MY_QUERY)###############################################
         return redirect("/view")
     
@@ -83,12 +83,12 @@ def index():
     if request.method == 'POST':
     
     
-        try:
-            task_name = request.form["Name"]
-            task_content = request.form["txt_comments"]
-            task_sheet = request.form["sheet"]
-            public = request.form["Public"]
-            new_task = {"_id":session['username']+task_name,
+        #try:
+        task_name = request.form["Name"]
+        task_content = request.form["txt_comments"]
+        task_sheet = request.form["sheet"]
+        public = request.form["Public"]
+        new_task = {"_id":session['username']+task_name,
                         "Name" : task_name,
                         "Content" : task_content.strip(),
                         "Sheet" : task_sheet,
@@ -97,73 +97,74 @@ def index():
                         "Set":[]}
             
             
-            if not task_name:
-                return Renderer('index.html')
-            if not task_content:
-                return Renderer('index.html')
-            if not task_sheet:
-                return Renderer('index.html')
-        
-        
-            task = mongo.db.Data.find({})    
-            for item in task:
-                if item["_id"] == session['username']+task_name:
-                    val = render_template("Error.html",message="This data already exists please choose another")
-                    return(val)
-                else:pass
+        if not task_name:
+            return Renderer('index.html')
+        if not task_content:
+            return Renderer('index.html')
+        if not task_sheet:
+            return Renderer('index.html')
+                
+        task = mongo.db.Data.find({})    
+        for item in task:
+            if item["_id"] == session['username']+task_name:
+                val = render_template("Error.html",message="This data already exists please choose another")
+                return(val)
+            else:pass
             
             
-            mongo.db.Data.insert_one(new_task)
-            return(redirect("/view"))
-            return (url_for('Viewing'))
+        mongo.db.Data.insert_one(new_task)
+        print("Hello")
+        print("World")
+        return("It's Working")            
+        #return redirect("/view")
+        #return (url_for('Viewing'))
 
-            
-            
-        except:
+    else:
+        tasks = mongo.db.Data.find({})
+        return Renderer('index.html', tasks)#, tasks = tasks)      
+        '''     
+        except KeyError:
             task = mongo.db.Data.find({})
-            print(1)
+            #print(1)
             task_name = request.form['Name_1']
-            print()
+            #print()
             for tasks in task:
-                print(tasks["Name"],task_name)
+                #print(tasks["Name"],task_name)
                 if (tasks["Name"]).strip() == task_name:
                     tasks_author = tasks['author']
-                    print("Yay")
-            print(request.form)
+                    #print("Yay")
+            #print(request.form)
             task_content = request.form["txt_comments"]
             task_sheet = request.form["sheet"]
             public = request.form["Public"]
             #name = request.form["Name_Old"]
                 
             
-            print (tasks_author)
+            #print (tasks_author)
     
             query = {"_id":tasks_author+task_name} 
             new_task = { "$set":{"Content" : task_content.strip(), "Sheet" : task_sheet,"Type":public}}
             mongo.db.Data.update_one(query,new_task)
-            print("1111000000002222222999999938884755467")
+            #print("1111000000002222222999999938884755467")
             return redirect("/Sheets")
 
         
     
         
     else:
-        print(url,17)
-     
-            
 
-        
+
         tasks = mongo.db.Data.find({})
     
-        return Renderer('index.html', tasks)#, tasks = tasks)
+        return Renderer('index.html', tasks)#, tasks = tasks)'''
 
 @app.route('/view',methods=['POST','GET'])
 def Viewing():
     
     if not session:
         return redirect(url_for('login'))
-    print((request.url_root))
-    print(request.base_url)
+    #print((request.url_root))
+    #print(request.base_url)
 
     if request.method == 'GET':
         
@@ -246,8 +247,9 @@ def Viewing():
                 return val
             
         else:
-            
-            print("111223")            
+
+            print("Running View func")
+        
  
             avail = []
             tasks = mongo.db.Data.find({})
@@ -490,7 +492,7 @@ def Sheets():
         for counter in range (len(names)):       
             query = {"_id":names[counter]} 
             new_task = { "$set":{"Set":sets2d[counter]}}
-            print (str([query,new_task]))
+            #print (str([query,new_task]))
             mongo.db.Data.update_one(query,new_task)
         return redirect("/Sheets")
   
@@ -533,7 +535,7 @@ def Sheets():
                         #print(item)
                         new.append(listl)
             #print(new)
-            print(sets)
+            #print(sets)
             x=0
             if session["admin"]==True:
                 x=1
@@ -571,7 +573,7 @@ def Sheets():
 
 if __name__ == "__main__":
     app.secret_key = 'RamisC00L'
-    app.run(debug = False)
+    app.run(debug = True)
 
 
 
