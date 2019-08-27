@@ -386,8 +386,8 @@ def login():
                     app.permanent_session_lifetime = timedelta(minutes=10)
                     return redirect(url_for('index'))
 
-            else:
-                return("Wrong username or password")
+            else:pass
+                #return("Wrong username or password")
         return "Wrong username or password"
     else:
         return render_template("login.html")
