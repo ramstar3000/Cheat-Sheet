@@ -1,0 +1,73 @@
+{% extends 'base.html'%}
+
+{% block head %}
+
+<style type="text/css">
+
+.container{
+  display: flex;
+  flex-wrap: wrap;
+
+}
+    <style type="text/css">
+        body{background-color:#000000
+        }
+        </style>
+
+</style>
+
+{% endblock %}
+{% block body %}
+
+<h4>{{loop[0]}}</h4>
+<hr></hr>
+<form method='post'>
+<div class="container" id ="Info" >
+
+{%for item in loop[1]%}
+    <input type='text' hidden name={{item['_id']}} id="Save" value={{item['_id']}} placeholder = "Title"></input>
+
+
+<div style="background-color: rgba(255,0,0,0);">
+    <div align="center">
+        <div class="col">
+            <div class="row-md-6" style='margin-bottom:10px;'>
+                <div style="height:auto">
+                <div class="card">
+                    <div class="card bg-primary text-white">
+                      <div class="card-header">
+                    {{item["Name"]}}
+                    </div>
+                    </div>
+                    <div class="card-body">
+                    <h5 class="card-title">{{item["Content"]}}</h5>
+                    <p class="card-text">
+                    <i> <pre><code>
+{{item.Sheet}}
+                    </code></pre> </i> </p>
+                                
+                   <!-- <small class="card-text">By:{{item["author"]}}</small> -->
+
+                </div>
+                </div>
+           </div>
+           </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+    
+<hr></hr>
+{% if loop[2]==True %}
+    <input type='text' name="Save" id="Save" placeholder = "Title"></input>
+    <input type="submit" value="Save">
+{% endif %}
+
+
+{% if loop[3]==1 %}
+    <h1>Delete</h1>
+    <input type="submit" value="Delete">
+{% endif %}
+</form>
+{% endblock %}

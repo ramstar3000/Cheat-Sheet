@@ -1,0 +1,72 @@
+{% extends 'index.html'%}
+
+{%block Title%}
+
+    <form actions="/" method="POST">
+        Title : <input type='hidden' name="Name" id="Name" value = "{{loopable[1]['Name']}}"/>
+        <a>{{loopable[1]['Name']}}</a>
+        
+        <br><br> Information:<br>
+        
+        
+        <textarea id="txt_comments" name="txt_comments" rows="9" cols="45">
+        {{loopable[1]["Content"]}}
+        </textarea>
+        <br><br> Code:<br>
+    </form >    
+
+{%endblock%}
+
+
+
+{%block edit%}
+        
+
+
+    <div id="Pyeditor">{{loopable[1]["Sheet"]}}</div>
+{%endblock%}
+
+
+{%block sending%}
+<script type="text/javascript">
+        var e = ace.edit("Pyeditor");
+        e.getSession().setMode("ace/mode/python");
+    
+        
+        
+    function send(){
+        
+        
+          var value = e.getValue();
+      
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function(){
+                       
+              
+              
+              }
+      
+          xhttp.open("POST","/",true);
+          xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+          console.log(document.getElementById('Public').value);
+          xhttp.send("sheet="+value+"&&Name_1="+document.getElementById('Name').value+"&&txt_comments="+document.getElementById('txt_comments').value+"&&Public="+document.getElementById('Public').value);
+      
+      
+          }
+
+    </script>
+    
+                    
+
+
+{%endblock%}
+
+{%block Button%}
+        <button onclick=send()>UPDATE TASK</button>
+        
+ 
+                 
+
+{%endblock%}
+
+{%block info%}        <a href = "/?DLT={{loopable[1]['author']}}{{loopable[1]['Name']}}">Delete</a>  {%endblock%}

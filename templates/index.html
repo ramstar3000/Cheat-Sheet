@@ -1,0 +1,114 @@
+{% extends 'base.html'%}
+
+{%block head%}
+
+   <div align = "left">
+         <a href="/Logout">Sign Out</a>
+    </div>
+
+
+
+<div align="right">
+
+    <p>{{loopable[0]}}<p>
+
+    
+</div>
+<title>
+Cheat Sheet Maker
+</title>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/ace.js"></script>
+<style type="text/css">
+        #Pyeditor {
+        height: 100px;
+        width:400px;
+    }
+            
+    </style>
+
+
+
+{%endblock%}
+
+
+
+
+{%block body%}
+
+<div align="center" >
+
+    <h1 align = "center">Card Maker </h1>
+    
+    {%block Title%}
+    
+    <form actions="/" method="POST">
+        Title : <input type='text' name="Name" id="Name" placeholder = "Unique title" />
+
+        
+        <br><br> Information:<br>
+        
+        
+        <textarea id="txt_comments" name="txt_comments" rows="9" cols="45"></textarea>
+        <br><br> Code:<br>
+    </form >    
+    {%endblock%}
+        
+
+     {%block edit%}   
+    <div id="Pyeditor">
+    
+print("Hello World")
+    
+    </div>
+    {%endblock%}
+    
+    
+        <select id="Public">
+          <option value="Public">Forum</option>
+          <option value="Private">My Documents</option>
+        </select>
+    
+    {%block sending%}
+    <script type="text/javascript">
+        var e = ace.edit("Pyeditor");
+        e.getSession().setMode("ace/mode/python");
+    
+        
+        
+    function send(){
+        
+        
+          var value = e.getValue();
+      
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function(){
+                       
+              
+              
+              }
+      
+          xhttp.open("POST","/",true);
+          xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+          console.log(document.getElementById('Public').value);
+          xhttp.send("sheet="+value+"&&Name="+document.getElementById('Name').value+"&&txt_comments="+document.getElementById('txt_comments').value+"&&Public="+document.getElementById('Public').value);
+      
+          }
+
+    </script>
+
+    {%endblock%}
+        <br>
+        
+   
+        {%block Button%}
+        <button onclick=send()>ADD TASK</button>
+        {%endblock%}
+        
+    
+        <br><br>
+        <a href = "/view">View Cards</a> 
+        </div>
+    
+    {%block info%}  {%endblock%}
+{%endblock%}

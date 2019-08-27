@@ -1,0 +1,97 @@
+{% extends 'base.html'%}
+
+
+
+{%block body%}
+{% if loop[1]==True %}
+
+   
+    <div class="card" style="width: 50%;">
+      <div class="card-header">
+        {{loop[0]["Name"]}}
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{loop[0]["Content"]}}</h5>
+        
+
+        
+        
+        <i> <pre><code>
+            {{loop[0].Sheet}}
+        </code></pre> </i>
+        
+        
+        
+        
+        
+        </p>
+        
+       <p class="card-text">By:{{loop[0]["author"]}}</p>
+
+       <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+    </div>
+   
+   
+   
+   
+         
+    <div align="right">
+    <p>By: {{loop[0]['author']}}</p>
+
+
+    </div>
+    <br>
+    
+     
+     
+</div>
+{% elif loop[1] == False%}
+
+<div style="width:30%,background-color: rgba(255,0,0,0.1),height:100px";>
+    <div align="center">
+        <div class="row">
+
+                <div class="card">
+                    <div class="card-header">
+                    {{loop[0]["Name"]}}
+                    </div>
+                    <div class="card-body">
+                    <h5 class="card-title">{{loop[0]["Content"]}}</h5>
+                    <p class="card-text">
+                    <i> <pre><code>
+{{loop[0].Sheet}}
+                    </code></pre> </i> </p>
+                                
+                    <p class="card-text">By:{{loop[0]["author"]}}</p>
+
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</div>
+<!--  #################################################################################### -->
+
+
+
+
+
+         
+
+    <br>
+<div align="left">
+    <a href = "/?info={{loop[0]['Content']}}"> Edit[Admin and Author only]</a> 
+</div>
+
+
+
+
+{% endif %}
+
+
+
+
+
+
+{%endblock%}

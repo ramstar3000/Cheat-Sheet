@@ -1,0 +1,59 @@
+{% extends 'base.html'%}
+
+
+{%block head%}
+   <div align = "left">
+         <a href="/Logout">Sign Out</a>
+    </div>
+<div align="right">
+
+    
+</div>
+
+<title>Find sheets</title>
+<div align="right">
+<a href = "/view?val=True">My Docs</a>
+<a href = "/view">Forum</a>
+
+
+</div>
+
+{%endblock%}
+
+
+
+{%block body%}
+
+<br>
+<div align="center">
+    <h1>Completed Sheets</h1>
+    <form actions="/Sheets'">
+        <input type='text' name="Search" id="Search" value = "e.g. Pygame"/>
+        <input type='submit' value ="Search" align = "center"/>
+    </form>
+</div>
+<br><br>
+<form method='post'>
+{% for task in sets %}
+    <form actions="/Sheets" method="POST">
+    <br>
+    <div>
+  
+    <p1>•</p1> 
+       <a href = "/Sheets?info={{task}}"> {{ task }}</a> :
+        <!-- <p1>    By {{task['author']}}</p1> -->
+    <div>
+    </form>
+    
+    
+{% endfor %}
+</form>
+<br><br>
+    <div align="center">
+   <!-- <a href = "/CheatSheet?Pub=True" target="_blank">Cheat Sheet</a> </br>
+    <a href = "/CheatSheet?Pub=False" target="_blank">My Docs Sheet</a> </br> -->
+    <a href = "/">Create Cards</a> <a ></a> <br/>
+        <a href = "/view">View cards</a> </br> 
+    </div>
+{%endblock%}
+
