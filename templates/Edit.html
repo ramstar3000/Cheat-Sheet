@@ -50,7 +50,10 @@
           xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
           console.log(document.getElementById('Public').value);
           xhttp.send("sheet="+value+"&&Name_1="+document.getElementById('Name').value+"&&txt_comments="+document.getElementById('txt_comments').value+"&&Public="+document.getElementById('Public').value);
-      
+          var temp = document.getElementsByTagName("template")[0];
+          var clon = temp.content.cloneNode(true);
+          document.body.appendChild(clon);    
+
       
           }
 
@@ -64,7 +67,9 @@
 {%block Button%}
         <button onclick=send()>UPDATE TASK</button>
         
- 
+ <template>
+	<h2 align = "right" >Sent</h2>
+</template>
                  
 
 {%endblock%}

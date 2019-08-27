@@ -83,46 +83,44 @@ def index():
     if request.method == 'POST':
     
     
-        #try:
-        task_name = request.form["Name"]
-        task_content = request.form["txt_comments"]
-        task_sheet = request.form["sheet"]
-        public = request.form["Public"]
-        new_task = {"_id":session['username']+task_name,
-                        "Name" : task_name,
-                        "Content" : task_content.strip(),
-                        "Sheet" : task_sheet,
-                        "author":session['username'],
-                        "Type":public,
-                        "Set":[]}
-            
-            
-        if not task_name:
-            return Renderer('index.html')
-        if not task_content:
-            return Renderer('index.html')
-        if not task_sheet:
-            return Renderer('index.html')
+        try:
+            task_name = request.form["Name"]
+            task_content = request.form["txt_comments"]
+            task_sheet = request.form["sheet"]
+            public = request.form["Public"]
+            new_task = {"_id":session['username']+task_name,
+                            "Name" : task_name,
+                            "Content" : task_content.strip(),
+                            "Sheet" : task_sheet,
+                            "author":session['username'],
+                            "Type":public,
+                            "Set":[]}
                 
-        task = mongo.db.Data.find({})    
-        for item in task:
-            if item["_id"] == session['username']+task_name:
-                val = render_template("Error.html",message="This data already exists please choose another")
-                return(val)
-            else:pass
-            
-            
-        mongo.db.Data.insert_one(new_task)
-        print("Hello")
-        print("World")
-        return("It's Working")            
-        #return redirect("/view")
-        #return (url_for('Viewing'))
+                
+            if not task_name:
+                return Renderer('index.html')
+            if not task_content:
+                return Renderer('index.html')
+            if not task_sheet:
+                return Renderer('index.html')
+                    
+            task = mongo.db.Data.find({})    
+            for item in task:
+                if item["_id"] == session['username']+task_name:
+                    val = render_template("Error.html",message="This data already exists please choose another")
+                    return(val)
+                else:pass
+                
+                
+            mongo.db.Data.insert_one(new_task)
+            print("Hello")
+            print("World")
+            return("It's Working")            
+            #return redirect("/view")
+            #return (url_for('Viewing'))
 
-    else:
-        tasks = mongo.db.Data.find({})
-        return Renderer('index.html', tasks)#, tasks = tasks)      
-        '''     
+
+           
         except KeyError:
             task = mongo.db.Data.find({})
             #print(1)
@@ -156,7 +154,7 @@ def index():
 
         tasks = mongo.db.Data.find({})
     
-        return Renderer('index.html', tasks)#, tasks = tasks)'''
+        return Renderer('index.html', tasks)#, tasks = tasks)
 
 @app.route('/view',methods=['POST','GET'])
 def Viewing():
