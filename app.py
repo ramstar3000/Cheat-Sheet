@@ -375,8 +375,10 @@ def login():
         username = request.form.get("name")
         pswd = request.form.get("password")
         for element in tasks:
+            print(element,username)
             if element["User"]== username:
                 x = (element["Pass"])
+                print(x)
                 if (sha256_crypt.verify(str(pswd), str(x))):
                     session['username'] = username
                     session['admin'] = element["Admin"]
@@ -385,7 +387,7 @@ def login():
                     return redirect(url_for('index'))
 
             else:
-                return("Wrong username or password")
+                print('1')
         return "Wrong username or password"
     else:
         return render_template("login.html")
