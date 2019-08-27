@@ -15,7 +15,6 @@ from re import sub,finditer,findall
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb+srv://Ramstar:Ramstar@cheat-sheet-rtetw.mongodb.net/test?retryWrites=true&w=majority'
 mongo = PyMongo(app)
-app.secret_key = 'RamisC00L'
 
 
 
@@ -47,9 +46,11 @@ def index():
         url = url.replace(normal,"")
         url = url.replace("?DLT=","")
         url = url.replace(",","")
+        url = url.replace("%20"," ")
         url=url.strip()
         print(url)
         MY_QUERY = {"_id":url}
+        print (MY_QUERY)
         mongo.db.Data.delete_one(MY_QUERY)###############################################
         return redirect("/view")
     
@@ -140,7 +141,7 @@ def index():
             new_task = { "$set":{"Content" : task_content.strip(), "Sheet" : task_sheet,"Type":public}}
             mongo.db.Data.update_one(query,new_task)
             print("1111000000002222222999999938884755467")
-            return ("Successful")
+            return redirect("/Sheets")
 
         
     
@@ -244,7 +245,8 @@ def Viewing():
                 return val
             
         else:
-         
+            
+            print("111223")            
  
             avail = []
             tasks = mongo.db.Data.find({})
@@ -374,10 +376,8 @@ def login():
         username = request.form.get("name")
         pswd = request.form.get("password")
         for element in tasks:
-            print(element,username)
             if element["User"]== username:
                 x = (element["Pass"])
-                print(x)
                 if (sha256_crypt.verify(str(pswd), str(x))):
                     session['username'] = username
                     session['admin'] = element["Admin"]
@@ -386,7 +386,7 @@ def login():
                     return redirect(url_for('index'))
 
             else:
-                print('1')
+                return("Wrong username or password")
         return "Wrong username or password"
     else:
         return render_template("login.html")
@@ -570,7 +570,7 @@ def Sheets():
 
 if __name__ == "__main__":
     app.secret_key = 'RamisC00L'
-    app.run(debug = False)
+    app.run(debug = True)
 
 
 
