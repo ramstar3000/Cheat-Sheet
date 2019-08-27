@@ -15,6 +15,7 @@ from re import sub,finditer,findall
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb+srv://Ramstar:Ramstar@cheat-sheet-rtetw.mongodb.net/test?retryWrites=true&w=majority'
 mongo = PyMongo(app)
+app.secret_key = 'RamisC00L'
 
 
 
@@ -570,7 +571,7 @@ def Sheets():
 
 if __name__ == "__main__":
     app.secret_key = 'RamisC00L'
-    app.run(debug = True)
+    app.run(debug = False)
 
 
 
