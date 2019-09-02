@@ -366,7 +366,6 @@ def register():
         creds = {"Name":name,"User":username,"Pass":secure_password,"Admin":False}
         if password == confirm:
             mongo.db.Credentials.insert_one(creds)
-            session['username']  = username
             return redirect(url_for('index'))       
         else:
             return("Oh No!!!!")
