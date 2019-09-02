@@ -5,13 +5,8 @@ from flask_pymongo import PyMongo
 from re import sub,finditer,findall
 #Improve:
 
-#current redirect system after task added is not functional
-#author problems with updating from admin
 
 
-#in html swap sheet and card appropriately
-#Make the set names unique then unstrip for output
-#add a delete the set function 
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb+srv://Ramstar:Ramstar@cheat-sheet-rtetw.mongodb.net/test?retryWrites=true&w=majority'
 mongo = PyMongo(app)
@@ -96,7 +91,7 @@ def index():
                             "Type":public,
                             "Set":[]}
                 
-            print(task_sheet,task_sheet.strip())
+            #print(task_sheet,task_sheet.strip())
             if not task_name:
                 return Renderer('index.html')
             if not task_content:
@@ -113,8 +108,8 @@ def index():
                 
                 
             mongo.db.Data.insert_one(new_task)
-            print("Hello")
-            print("World")
+            #print("Hello")
+            #print("World")
             return("It's Working")            
             #return redirect("/view")
             #return (url_for('Viewing'))
@@ -270,12 +265,14 @@ def Viewing():
             if element=="Save":
                 x=1
             else:pass
+	
         if x==1:
             
             
             
             
             listl = []
+            print(request.form)
             for card in request.form:
                 if card != "Save":
                     listl.append(card)
@@ -291,20 +288,28 @@ def Viewing():
             if sets in Real_sets:
                 val = render_template("Error.html",message="Please create a more unique set name \n \n e.g. Add your username at the end")
                 return(val)#Perhaps use username scheme to reduce likelihood
-         
-
+            print (listl)
             for element in range(len(listl)):
+                length = len(listl[element])
+                print(length)
+                print(listl[element],end='')
                 tasks = mongo.db.Data.find({})#pointer error if
                 for item in tasks:
-                    if listl[element]==item["_id"]:
+                    comp = (item["_id"][0:length])
+                    if listl[element]==comp:
+                        print("Pass")
                         value = item["Set"]
                         value.append(sets)
-                        query = {"_id":listl[element]}
+                        query = {"_id":item["_id"]}
                         new_task = { "$set":{"Set" : value}}
+                        print(query,new_task)
                         mongo.db.Data.update_one(query,new_task)
+                        y = 1
+                        break
  
                         
-                    else:pass
+                    else:
+                        pass
             return (redirect("/"))
 
             
@@ -325,11 +330,11 @@ def Viewing():
                     if x[element]==item["_id"]:
                         loop.append(item)
                     else:pass
-            print(loop)
+            #print(loop)
             
             for element in loop:
                 element["Sheet"] = (element["Sheet"].strip())
-            print(loop)
+            #print(loop)
             if loop:
                 z=0
 ##                if session["admin"]==True:
@@ -470,19 +475,20 @@ def Big_View():
         
 @app.route('/Sheets',methods=['GET','POST'])
 def Sheets():
-    
     if request.method == 'POST':
         url = request.url
         normal =  str(request.base_url)+"?info="
         url = url.replace(normal,"")
         names = []
         sets2d = []
-        
+        print(request.form)
         for element in request.form:
             tasks = mongo.db.Data.find({})
+            length = len(element)
             for item in tasks:
-                if element==item["_id"]:
-                    names.append(element)
+                comp = (item["_id"][0:length])
+                if element==comp:
+                    names.append(item["_id"])
                     sets2d.append(item["Set"])
         for value  in sets2d:
             for item in value:
@@ -490,7 +496,7 @@ def Sheets():
                     value.remove(url)
 ##        return(str(sets2d))
                     
-            
+        print(names)
         for counter in range (len(names)):       
             query = {"_id":names[counter]} 
             new_task = { "$set":{"Set":sets2d[counter]}}
@@ -567,7 +573,9 @@ def Sheets():
         return render_template("view_sheets.html")
     
 
-    
+@app.route('/Home')
+def Home_page():
+    return render_template("Boot.html")    
     
     
 
