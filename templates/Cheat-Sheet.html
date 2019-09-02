@@ -1,46 +1,86 @@
-{% extends 'base.html'%}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block head %}
+
+
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="{{ url_for('static',filename='main.css/') }}">
+    <script
+       charset="UTF-8"
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/atelier-dune.light.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/ace.js"></script>
+    
+    
+    
+    <style type="text/css">
+        body{background-color:#1BBC9B}
+    </style>
+    
+
+
+    
+    
+
+    
+
+
 
 <style type="text/css">
 
 .container{
   display: flex;
   flex-wrap: wrap;
+  max-width:900px;
+  border: 3px;
 
 }
-    <style type="text/css">
-        body{background-color:#000000
-        }
-        </style>
 
-</style>
 
-{% endblock %}
-{% block body %}
+</style> 
+    
+    
+  </head>
 
+
+
+
+
+<body>
+</br></br>
 <h4>{{loop[0]}}</h4>
 <hr></hr>
+<div align = "center">
 <form method='post'>
 <div class="container" id ="Info" >
-
 {%for item in loop[1]%}
     <input type='text' hidden name={{item['_id']}} id="Save" value={{item['_id']}} placeholder = "Title"></input>
 
 
 <div style="background-color: rgba(255,0,0,0);">
     <div align="center">
-        <div class="col">
-            <div class="row-md-6" style='margin-bottom:10px;'>
+
+
+            <div class="row-md-6" style='margin:4px;'>
                 <div style="height:auto">
                 <div class="card">
                     <div class="card bg-primary text-white">
                       <div class="card-header">
-                    {{item["Name"]}}
+                    {{item["Content"]}}
                     </div>
                     </div>
                     <div class="card-body">
-                    <h5 class="card-title">{{item["Content"]}}</h5>
+                    <!----<h5 class="card-title">{{item["Content"]}}</h5> --->
                     <p class="card-text">
                     <i> <pre><code>
 {{item.Sheet}}
@@ -50,14 +90,15 @@
 
                 </div>
                 </div>
+
            </div>
-           </div>
+
         </div>
     </div>
 </div>
 {% endfor %}
 </div>
-    
+</div>
 <hr></hr>
 {% if loop[2]==True %}
     <input type='text' name="Save" id="Save" placeholder = "Title"></input>
@@ -69,4 +110,4 @@
     <input type="submit" value="Delete">
 {% endif %}
 </form>
-{% endblock %}
+</body>
