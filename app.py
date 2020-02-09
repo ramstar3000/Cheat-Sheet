@@ -3,8 +3,11 @@ from datetime import datetime,timedelta
 from passlib.hash import sha512_crypt
 from flask_pymongo import PyMongo
 from re import sub,finditer,findall
-from pyautogui import keyDown,keyUp
+from pyautogui import hotkey
 from time import sleep
+import os
+
+os.environ['DISPLAY'] = ':0'
 #Improve:
 
 
@@ -530,7 +533,7 @@ def Sheets():
         
         if "?info" in url:     
      
-            url = url.replace("?info=","")        
+            url = url.replace("?info=","") 
             #print(url)
             
             sets = url
@@ -581,7 +584,7 @@ def Print():
 
          if "data" in url:
 
-            #hotkey('ctrl','p')
+            hotkey('ctrl','p')
 
             url = url.replace("data1","")  
             count += 1 
@@ -627,7 +630,7 @@ def Print():
          
          if count == 1:
              print(count)
-             #sleep(100)
+             sleep(100)
              return redirect("/") 
              
          return render_template("print.html",loop=[sets,new,False,0,1]) 
