@@ -7,7 +7,7 @@ from pyautogui import hotkey
 from time import sleep
 import os
 
-os.environ['DISPLAY'] = ':0'
+
 #Improve:
 
 
@@ -579,6 +579,7 @@ def Sheets():
 
 @app.route('/Print',methods=['GET','POST'])
 def Print():
+         os.environ['DISPLAY'] = ':0'
          global count
          url = request.url
 
