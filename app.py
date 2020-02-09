@@ -632,7 +632,7 @@ def Print():
          
          if count == 1:
              print(count)
-             sleep(100)
+             #sleep(100)
              return render_template("/") 
              
          return render_template("print.html",loop=[sets,new,False,0,1]) 
