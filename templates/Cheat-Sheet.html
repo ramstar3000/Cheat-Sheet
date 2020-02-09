@@ -41,10 +41,11 @@
   </head>
 
 <body>
+<div align = "center">
 </br></br>
 <h4>{{loop[0]}}</h4>
 <hr></hr>
-<div align = "center">
+
 <form method='post'>
 <div class="container" id ="Info" >
 {%for item in loop[1]%}
@@ -93,5 +94,10 @@
 {% if loop[3]==1 %}
     <input type="submit" value="Delete">
 {% endif %}
+
+
+{% block Print %}
+<a href = "/Print?info={{loop[0]}}">Print</a> 
+{% endblock %}
 </form>
 </body>

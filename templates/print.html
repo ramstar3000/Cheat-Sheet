@@ -1,0 +1,14 @@
+{% extends 'Cheat-Sheet.html' %}
+
+{% block Print %}
+
+
+{%if loop[4] != 0%}
+
+
+    <form actions="/print">
+        <input type='hidden' name="Search" id="Search" value = "True"/>
+    </form>
+<meta http-equiv = "refresh" content = "2; url = /Print?info={{loop[0]}}data1" />
+{% endif %}
+{% endblock %}

@@ -1,8 +1,10 @@
 from flask import Flask, render_template, url_for, request, redirect,session
 from datetime import datetime,timedelta
-from passlib.hash import sha256_crypt
+from passlib.hash import sha512_crypt
 from flask_pymongo import PyMongo
 from re import sub,finditer,findall
+from pynput.keyboard import Key, Controller
+from time import sleep
 #Improve:
 
 
@@ -362,7 +364,7 @@ def register():
                 val = render_template("Error.html",message="This username already exists please choose another")
                 return("Bad username")
             else:pass
-        secure_password = sha256_crypt.hash(str(password))
+        secure_password = sha512_crypt.hash(str(password))
         creds = {"Name":name,"User":username,"Pass":secure_password,"Admin":False}
         if password == confirm:
             mongo.db.Credentials.insert_one(creds)
@@ -387,7 +389,7 @@ def login():
         for element in tasks:
             if element["User"]== username:
                 x = (element["Pass"])
-                if (sha256_crypt.verify(str(pswd), str(x))):
+                if (sha512_crypt.verify(str(pswd), str(x))):
                     session['username'] = username
                     session['admin'] = element["Admin"]
                     session.permanent = True
@@ -572,10 +574,71 @@ def Sheets():
         return render_template("view_sheets.html")
     
 
-@app.route('/Home')
-def Home_page():
-    return render_template("Boot.html")    
+@app.route('/Print',methods=['GET','POST'])
+def Print():
+         global count
+         url = request.url
+
+         if "data" in url:
+
+            keyboard = Controller()
+
+
+            keyboard.press(Key.ctrl)
+            keyboard.press('p')
+            keyboard.release('p')
+            keyboard.release(Key.ctrl)
+            url = url.replace("data1","")  
+            count += 1 
+         else:
+            count = 0
+
+
+
+         normal = str(request.base_url)
+         tasks = mongo.db.Data.find({})
+
+        
+     
+         sets = []
+            
+         for listl in tasks:
+             for item in listl["Set"]:
+                 sets.append(item)
+             sets = [x for x in sets if x]
+         sets = set(sets)
+
+            
     
+         url = url.replace(normal,"")
+         pattern = r"%[2-7]."
+         url = sub(pattern,"",url)
+     
+         url = url.replace("?info=","")        
+
+         sets = url
+         new = []
+
+         tasks = mongo.db.Data.find({})
+         for listl in tasks:
+            for item in listl["Set"]:
+                 if item == sets:
+                     new.append(listl)
+
+         print("--------------------------------------------")     
+
+
+
+         
+         if count == 1:
+             print(count)
+             sleep(100)
+             return render_template("/") 
+             
+         return render_template("print.html",loop=[sets,new,False,0,1]) 
+
+
+
     
 
 
