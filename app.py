@@ -3,7 +3,7 @@ from datetime import datetime,timedelta
 from passlib.hash import sha512_crypt
 from flask_pymongo import PyMongo
 from re import sub,finditer,findall
-from keyboard import press_and_release
+from pyautogui import hotkey
 from time import sleep
 #Improve:
 
@@ -581,7 +581,7 @@ def Print():
 
          if "data" in url:
 
-            press_and_release("control+p")
+            hotkey('ctrl','p')
 
             url = url.replace("data1","")  
             count += 1 
@@ -627,8 +627,8 @@ def Print():
          
          if count == 1:
              print(count)
-             #sleep(100)
-             return render_template("/") 
+             sleep(100)
+             return redirect("/") 
              
          return render_template("print.html",loop=[sets,new,False,0,1]) 
 
