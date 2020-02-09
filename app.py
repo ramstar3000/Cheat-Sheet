@@ -3,7 +3,7 @@ from datetime import datetime,timedelta
 from passlib.hash import sha512_crypt
 from flask_pymongo import PyMongo
 from re import sub,finditer,findall
-from pynput.keyboard import Key, Controller
+from keyboard import press_and_release
 from time import sleep
 #Improve:
 
@@ -581,13 +581,8 @@ def Print():
 
          if "data" in url:
 
-            keyboard = Controller()
+            press_and_release("control+p")
 
-
-            keyboard.press(Key.ctrl)
-            keyboard.press('p')
-            keyboard.release('p')
-            keyboard.release(Key.ctrl)
             url = url.replace("data1","")  
             count += 1 
          else:
