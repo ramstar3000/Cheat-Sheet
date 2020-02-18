@@ -5,10 +5,10 @@
 
 {%if loop[4] != 0%}
 
-
-    <form actions="/print">
+<button onclick="style.display = 'none';window.print()">Print</button>
+<!--    <form actions="/print">
         <input type='hidden' name="Search" id="Search" value = "True"/>
     </form>
-<meta http-equiv = "refresh" content = "2; url = /Print?info={{loop[0]}}data1" />
+<meta http-equiv = "refresh" content = "2; url = /Print?info={{loop[0]}}data1" />-->
 {% endif %}
 {% endblock %}

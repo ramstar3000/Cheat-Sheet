@@ -3,9 +3,7 @@ from datetime import datetime,timedelta
 from passlib.hash import sha512_crypt
 from flask_pymongo import PyMongo
 from re import sub,finditer,findall
-from pyautogui import hotkey
-from time import sleep
-import os
+
 
 
 #Improve:
@@ -579,13 +577,11 @@ def Sheets():
 
 @app.route('/Print',methods=['GET','POST'])
 def Print():
-         os.environ['DISPLAY'] = ':0'
+
          global count
          url = request.url
 
          if "data" in url:
-
-            hotkey('ctrl','p')
 
             url = url.replace("data1","")  
             count += 1 
@@ -623,16 +619,9 @@ def Print():
             for item in listl["Set"]:
                  if item == sets:
                      new.append(listl)
-
-         print("--------------------------------------------")     
-
+  
 
 
-         
-         if count == 1:
-             print(count)
-             sleep(100)
-             return redirect("/") 
              
          return render_template("print.html",loop=[sets,new,False,0,1]) 
 
