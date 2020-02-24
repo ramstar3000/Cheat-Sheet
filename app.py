@@ -112,8 +112,7 @@ def index():
                 
             mongo.db.Data.insert_one(new_task)
             #print("Hello")
-            #print("World")
-            return("It's Working")            
+            #print("World")          
             #return redirect("/view")
             #return (url_for('Viewing'))
 
@@ -363,7 +362,7 @@ def register():
         for item in users:
             if item["User"] == username:
                 val = render_template("Error.html",message="This username already exists please choose another")
-                return("Bad username")
+                return render_template("Error.html",message="Bad username")
             else:pass
         secure_password = sha512_crypt.hash(str(password))
         creds = {"Name":name,"User":username,"Pass":secure_password,"Admin":False}
@@ -371,7 +370,7 @@ def register():
             mongo.db.Credentials.insert_one(creds)
             return redirect(url_for('index'))       
         else:
-            return("Oh No!!!!")
+            return render_template("Error.html",message="Oh No!!!!")
         
     else:
         return render_template("Registration.html")
@@ -399,7 +398,7 @@ def login():
 
             else:pass
                 #return("Wrong username or password")
-        return "Wrong username or password"
+        return render_template("Error.html",message="Wrong username or password")
     else:
         return render_template("login.html")
 
@@ -416,10 +415,7 @@ def Big_View():
   
     
     if request.method=='POST':
-##        if save in request.form:
-##            print(1111111111111111111111)
-##            
-        #print(request.form)
+
         listl = []
         for card in request.form:
             if card != "Save":
