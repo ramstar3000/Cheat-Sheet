@@ -43,7 +43,7 @@
     <p1>•</p1>
       <input type="checkbox" name='{{ task["_id"]}}' value='{{ task["_id"] }}'></input>
        <p1>{{ task["Name"] }}</p1> :   
-       <a href = "/view?info={{task['Content']}}"> {{ task['Content'] }}</a> :
+       <a id={{ task['Content'] }} href = "/view?info={{task['Content']}}"> {{ task['Content'] }}</a> :
         <p1>      By {{task['author']}}</p1>
     <div>
     
@@ -52,7 +52,7 @@
 </form>
 <br><br>
     <div align="center">
-    <input  target="_blank" type="submit" value="Make Sheet">
+    <input id="Submit" target="_blank" type="submit" value="Make Sheet">
     
     </div>
 {%endblock%}
