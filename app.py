@@ -70,7 +70,8 @@ def index():
                         val = Renderer('Edit.html',tasks)
                         return val
                     else:
-                        return('This feature is not available')
+			val = render_template("Error.html",message='This feature is not available')
+                        return(val)
                 except KeyError:
                     if session['username']==tasks["author"]:
                         val = Renderer('Edit.html',tasks)
