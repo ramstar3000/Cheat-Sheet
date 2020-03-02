@@ -59,3 +59,5 @@ Information
 This project is made to assist people by making cheat sheet cards for people to use while coding in python. 
 It will contain the syntax to do tasks and the syntax for each area, for example at the moment there is a set called list functions which contains all the information needed to manipulate and access lists in Python
 
+With young Wonks https://www.youngwonks.com/
+
