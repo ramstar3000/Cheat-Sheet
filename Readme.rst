@@ -7,6 +7,8 @@ Currently hosted at https://cheat-sheet-maker.herokuapp.com/
 
 Install
 -------
+**Be sure to use the same version of the code as the version of the docs
+you're reading.**. ::
 
 
     # clone the repository
