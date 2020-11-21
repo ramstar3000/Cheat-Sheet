@@ -11,7 +11,7 @@ from re import sub,finditer,findall
 
 
 app = Flask(__name__)
-app.config['MONGO_URI'] = 'mongodb+srv://Ramstar:Ramstar@cheat-sheet-rtetw.mongodb.net/test?retryWrites=true&w=majority'
+app.config['MONGO_URI'] = 'mongodb+srv://<user>:<pass>@cheat-sheet-rtetw.mongodb.net/test?retryWrites=true&w=majority'
 mongo = PyMongo(app)
 app.secret_key = 'RamisC00L'
 
