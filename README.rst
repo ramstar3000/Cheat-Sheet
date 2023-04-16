@@ -2,7 +2,7 @@ Cheat-Sheet-Maker
 ======
 
 A cheat sheet appliaction made with flask
-Currently hosted at https://cheat-sheet-maker.herokuapp.com/
+Currently hosted at https://cheat-sheet-maker.herokuapp.com/ ; No longer hosted here
 
 
 Install
